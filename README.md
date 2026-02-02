@@ -43,7 +43,7 @@ Ensure Python is installed:
 python --version
 
 Step 2: Clone the Repository
-git clone https://github.com/YOUR-USERNAME/AI-Crack-Detection.git
+git clone https://github.com/DaminiAI/AI-Crack-Detection.git
 cd AI-Crack-Detection
 
 Step 3: Create & Activate Virtual Environment (Optional)
