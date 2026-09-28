@@ -1,0 +1,45 @@
+@echo off
+title Crack Detection Demo
+
+:: Step 1: Start backend
+echo Starting backend...
+start cmd /k "cd /d C:\crack_detection_live\backend && python app.py"
+
+:: Wait 5 seconds for backend to initialize
+timeout /t 5
+
+:: Step 2: Start ngrok
+echo Starting ngrok tunnel...
+start cmd /k "cd /d C:\crack_detection_live\ngrok && ngrok http 5000"
+
+echo Demo environment started.
+echo Wait for ngrok URL to appear and open it on your phone.
+pause
+
+
+
+
+@echo off
+title Crack Detection Demo
+
+:: Step 1: Start backend
+echo Starting backend...
+start cmd /k "cd /d C:\crack_detection_live\backend && python app.py"
+
+:: Wait 5 seconds for backend to initialize
+timeout /t 5
+
+:: Step 2: Start ngrok
+echo Starting ngrok tunnel...
+start cmd /k "cd /d C:\crack_detection_live\ngrok && ngrok http 5000"
+
+:: Wait a few seconds for ngrok to generate URL
+echo Waiting 10 seconds for ngrok URL...
+timeout /t 10
+
+:: Step 3: Open ngrok URL in default browser
+echo Opening ngrok URL in browser...
+start "" "https://disguisable-nontelescopic-valentin.ngrok-free.dev"
+
+echo Demo environment started. Camera should initialize on phone.
+pause

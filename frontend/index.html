@@ -1,0 +1,255 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#101827">
+  <title>AI Crack Detection | PD Innovate</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 24px 16px;
+      font-family: Arial, sans-serif;
+      color: #f8fafc;
+      background: #101827;
+      text-align: center;
+    }
+
+    main {
+      max-width: 520px;
+      margin: 0 auto;
+    }
+
+    h1 {
+      font-size: 25px;
+      margin-bottom: 8px;
+    }
+
+    .subtitle {
+      color: #b8c4d6;
+      font-size: 14px;
+      margin-bottom: 22px;
+    }
+
+    video {
+      display: block;
+      width: 100%;
+      max-height: 60vh;
+      object-fit: cover;
+      background: #202b3d;
+      border-radius: 14px;
+    }
+
+    #result {
+      margin: 18px 0 8px;
+      padding: 16px;
+      border-radius: 12px;
+      background: #202b3d;
+      font-size: 19px;
+      font-weight: bold;
+    }
+
+    #details {
+      color: #b8c4d6;
+      font-size: 14px;
+      min-height: 20px;
+    }
+
+    button {
+      width: 100%;
+      padding: 13px;
+      margin-top: 14px;
+      border: 0;
+      border-radius: 10px;
+      background: #38bdf8;
+      color: #101827;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    button:disabled {
+      opacity: 0.6;
+      cursor: wait;
+    }
+
+    footer {
+      margin-top: 24px;
+      color: #91a0b5;
+      font-size: 12px;
+    }
+  </style>
+</head>
+
+<body>
+<main>
+  <h1>AI Crack Detection</h1>
+  <div class="subtitle"> Computer Vision Demo </div>
+
+  <video id="video" autoplay playsinline muted></video>
+  <canvas id="canvas" width="224" height="224" hidden></canvas>
+
+  <div id="result" role="status" aria-live="polite">
+    Starting camera...
+  </div>
+  <div id="details">Preparing detection...</div>
+
+  <button id="toggleButton" type="button">Pause Detection</button>
+
+  <footer>
+    AI predictions are experimental and should not replace professional
+    structural inspections.
+  </footer>
+</main>
+
+<script>
+  const NGROK_URL =
+    "https://disguisable-nontelescopic-valentin.ngrok-free.dev";
+
+  const video = document.getElementById("video");
+  const canvas = document.getElementById("canvas");
+  const resultText = document.getElementById("result");
+  const details = document.getElementById("details");
+  const toggleButton = document.getElementById("toggleButton");
+  const ctx = canvas.getContext("2d");
+
+  let busy = false;
+  let running = true;
+  let timerId = null;
+  let stream = null;
+
+  // Start with a 1-second interval between attempts.
+  // Each new request waits for the previous request to finish.
+  const FRAME_INTERVAL_MS = 1000;
+
+  function showStatus(message, color = "#f8fafc") {
+    resultText.textContent = message;
+    resultText.style.color = color;
+  }
+
+  async function startCamera() {
+    try {
+      stream = await navigator.mediaDevices.getUserMedia({
+        video: {
+          facingMode: { ideal: "environment" },
+          width: { ideal: 640 },
+          height: { ideal: 480 }
+        },
+        audio: false
+      });
+
+      video.srcObject = stream;
+      await video.play();
+
+      showStatus("Camera ready", "#38bdf8");
+      details.textContent = "Connecting to the detection server...";
+      scheduleNextFrame(300);
+    } catch (error) {
+      showStatus("Camera unavailable", "#fbbf24");
+      details.textContent =
+        "Allow camera permission and reopen this HTTPS page.";
+      console.error("Camera error:", error);
+    }
+  }
+
+  function scheduleNextFrame(delay = FRAME_INTERVAL_MS) {
+    clearTimeout(timerId);
+
+    if (running) {
+      timerId = setTimeout(sendFrame, delay);
+    }
+  }
+
+  async function sendFrame() {
+    if (!running || busy || video.readyState < 2) {
+      scheduleNextFrame();
+      return;
+    }
+
+    busy = true;
+    const startedAt = performance.now();
+
+    try {
+      ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+      const blob = await new Promise(resolve => {
+        canvas.toBlob(resolve, "image/jpeg", 0.7);
+      });
+
+      if (!blob) {
+        throw new Error("Could not capture camera frame");
+      }
+
+      const formData = new FormData();
+      formData.append("image", blob, "frame.jpg");
+
+      const response = await fetch(`${NGROK_URL}/predict`, {
+        method: "POST",
+        body: formData,
+        cache: "no-store"
+      });
+
+      if (!response.ok) {
+        throw new Error(`Server returned HTTP ${response.status}`);
+      }
+
+      const data = await response.json();
+      const elapsed = ((performance.now() - startedAt) / 1000).toFixed(2);
+
+      if (typeof data.crack !== "boolean") {
+        throw new Error("Unexpected prediction response");
+      }
+
+      if (data.crack) {
+        showStatus("CRACK DETECTED", "#fb7185");
+      } else {
+        showStatus("NO CRACK DETECTED", "#4ade80");
+      }
+
+      details.textContent =
+        `Model score: ${data.confidence} · Request time: ${elapsed}s`;
+
+    } catch (error) {
+      showStatus("Detection connection error", "#fbbf24");
+      details.textContent = error.message;
+      console.error("Detection error:", error);
+    } finally {
+      busy = false;
+
+      // Wait for the current request to finish before sending another.
+      scheduleNextFrame();
+    }
+  }
+
+  toggleButton.addEventListener("click", () => {
+    running = !running;
+    toggleButton.textContent = running
+      ? "Pause Detection"
+      : "Resume Detection";
+
+    if (running) {
+      scheduleNextFrame(100);
+    } else {
+      clearTimeout(timerId);
+      showStatus("Detection paused", "#38bdf8");
+    }
+  });
+
+  window.addEventListener("pagehide", () => {
+    clearTimeout(timerId);
+
+    if (stream) {
+      stream.getTracks().forEach(track => track.stop());
+    }
+  });
+
+  startCamera();
+</script>
+</body>
+</html>
