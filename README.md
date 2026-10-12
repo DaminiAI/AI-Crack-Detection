@@ -1,156 +1,104 @@
-# \# AI Crack Detection
+###### \# AI Crack Detection
 
-# 
+###### 
 
-# An AI-powered computer vision project designed to detect cracks in images and live camera frames.
+###### A computer vision project for detecting cracks using deep learning and a live camera feed.
 
-# 
+###### 
 
-# \## Features
+###### \*\*Features\*\*
 
-# 
+###### \- Live camera-based crack detection
 
-# \- Real-time camera-based crack detection
+###### \- TensorFlow/Keras model inference
 
-# \- Deep learning model using TensorFlow/Keras
+###### \- Flask backend API
 
-# \- Image preprocessing with OpenCV
+###### \- Mobile-friendly web interface
 
-# \- Flask backend for prediction
+###### 
 
-# \- Mobile-friendly web interface
+###### \*\*Tech Stack:\*\* Python · TensorFlow/Keras · Flask · OpenCV · HTML · CSS · JavaScript
 
-# 
+###### 
 
-# \## Project Structure
+###### \*\*Project Structure\*\*
 
-# 
+###### ```text
 
-# ```text
+###### AI-Crack-Detection/
 
-# AI-Crack-Detection/
+###### ├── backend/
 
-# ├── backend/
+###### │   ├── app.py
 
-# │   ├── app.py
+###### │   ├── inference.py
 
-# │   ├── inference.py
+###### │   ├── rules.py
 
-# │   ├── rules.py
+###### │   ├── requirements.txt
 
-# │   ├── requirements.txt
+###### │   └── model files
 
-# │   ├── crack\_model.keras
+###### ├── frontend/
 
-# │   └── model/
+###### │   └── index.html
 
-# │       └── crack\_model.keras
+###### ├── .gitignore
 
-# ├── frontend/
+###### └── README.md
 
-# │   └── index.html
+###### ```
 
-# └── .gitignore
+###### 
 
-# ```
+###### \*\*Run Locally\*\*
 
-# 
+###### 
 
-# \## Getting Started
+###### 1\. Clone the repository:
 
-# 
+###### &#x20;  ```bash
 
-# \### 1. Clone the repository
+###### &#x20;  git clone https://github.com/DaminiAI/AI-Crack-Detection.git
 
-# 
+###### &#x20;  cd AI-Crack-Detection
 
-# ```bash
+###### &#x20;  ```
 
-# git clone https://github.com/DaminiAI/AI-Crack-Detection.git
+###### 
 
-# cd AI-Crack-Detection
+###### 2\. Create and activate a virtual environment:
 
-# ```
+###### &#x20;  ```bash
 
-# 
+###### &#x20;  python -m venv venv
 
-# \### 2. Create and activate a virtual environment
+###### &#x20;  venv\\Scripts\\activate
 
-# 
+###### &#x20;  ```
 
-# ```bash
+###### 
 
-# python -m venv venv
+###### 3\. Install dependencies and start the backend:
 
-# ```
+###### &#x20;  ```bash
 
-# 
+###### &#x20;  pip install -r backend/requirements.txt
 
-# Windows:
+###### &#x20;  cd backend
 
-# 
+###### &#x20;  python app.py
 
-# ```bash
+###### &#x20;  ```
 
-# venv\\Scripts\\activate
+###### 
 
-# ```
+###### \*\*Disclaimer:\*\* This project is for demonstration and experimentation. AI predictions may be inaccurate and must not replace professional structural inspections.
 
-# 
+###### 
 
-# \### 3. Install dependencies
-
-# 
-
-# ```bash
-
-# pip install -r backend/requirements.txt
-
-# ```
-
-# 
-
-# \### 4. Run the application
-
-# 
-
-# ```bash
-
-# cd backend
-
-# python app.py
-
-# ```
-
-# 
-
-# Open the local address shown in the terminal in your browser.
-
-# 
-
-# \## Disclaimer
-
-# 
-
-# This project is intended for demonstration and experimentation. AI predictions may be incorrect and should not replace professional structural inspections.
-
-# 
-
-# \## Contributors
-
-# 
-
-# \- Damini — Project development
-
-# \- Payal — Collaborator
-
-# 
-
-# \## License
-
-# 
-
-# No license has been specified yet.
+###### \*\*Contributors:\*\* Damini and Payal
 
 
 
