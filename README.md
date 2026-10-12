@@ -2,27 +2,27 @@
 
 ###### 
 
-###### A computer vision project for detecting cracks using deep learning and a live camera feed.
+###### A computer vision project that uses deep learning to detect cracks through a live camera feed.
 
 ###### 
 
-###### \*\*Features\*\*
+###### \*\*Tech Stack:\*\* Python · TensorFlow · Keras · Flask · HTML · CSS · JavaScript
 
-###### \- Live camera-based crack detection
+###### 
 
-###### \- TensorFlow/Keras model inference
+###### \## Features
 
-###### \- Flask backend API
+###### \- Real-time camera-based crack detection
+
+###### \- Deep learning model inference
+
+###### \- Flask API for predictions
 
 ###### \- Mobile-friendly web interface
 
 ###### 
 
-###### \*\*Tech Stack:\*\* Python · TensorFlow/Keras · Flask · OpenCV · HTML · CSS · JavaScript
-
-###### 
-
-###### \*\*Project Structure\*\*
+###### \## Project Structure
 
 ###### ```text
 
@@ -38,7 +38,7 @@
 
 ###### │   ├── requirements.txt
 
-###### │   └── model files
+###### │   └── model/
 
 ###### ├── frontend/
 
@@ -52,53 +52,59 @@
 
 ###### 
 
-###### \*\*Run Locally\*\*
+###### \## Setup
 
 ###### 
 
-###### 1\. Clone the repository:
+###### \*\*1. Clone the repository\*\*
 
-###### &#x20;  ```bash
+###### ```bash
 
-###### &#x20;  git clone https://github.com/DaminiAI/AI-Crack-Detection.git
+###### git clone https://github.com/DaminiAI/AI-Crack-Detection.git
 
-###### &#x20;  cd AI-Crack-Detection
+###### cd AI-Crack-Detection
 
-###### &#x20;  ```
-
-###### 
-
-###### 2\. Create and activate a virtual environment:
-
-###### &#x20;  ```bash
-
-###### &#x20;  python -m venv venv
-
-###### &#x20;  venv\\Scripts\\activate
-
-###### &#x20;  ```
+###### ```
 
 ###### 
 
-###### 3\. Install dependencies and start the backend:
+###### \*\*2. Create a virtual environment\*\*
 
-###### &#x20;  ```bash
+###### ```bash
 
-###### &#x20;  pip install -r backend/requirements.txt
+###### python -m venv venv
 
-###### &#x20;  cd backend
+###### venv\\Scripts\\activate
 
-###### &#x20;  python app.py
-
-###### &#x20;  ```
+###### ```
 
 ###### 
 
-###### \*\*Disclaimer:\*\* This project is for demonstration and experimentation. AI predictions may be inaccurate and must not replace professional structural inspections.
+###### \*\*3. Install dependencies\*\*
+
+###### ```bash
+
+###### pip install -r backend/requirements.txt
+
+###### ```
 
 ###### 
 
-###### \*\*Contributors:\*\* Damini and Payal
+###### \*\*4. Start the application\*\*
+
+###### ```bash
+
+###### cd backend
+
+###### python app.py
+
+###### ```
+
+###### 
+
+###### \## Disclaimer
+
+###### This project is intended for demonstration and experimentation. AI predictions may be inaccurate and should not replace professional structural inspections.
 
 
 
